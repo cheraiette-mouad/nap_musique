@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nap Musique - Apprenez le Piano</title>
+    <link rel="stylesheet" href="p.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Particules animées -->
+    <div id="particles-container"></div>
+
+    <!-- Canvas animé en arrière-plan -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Éléments animés d'arrière-plan -->
+    <div class="bg-aurora">
+        <div class="aurora-band aurora-1"></div>
+        <div class="aurora-band aurora-2"></div>
+        <div class="aurora-band aurora-3"></div>
+    </div>
+
+    <div class="bg-music-notes-float">
+        <span class="bg-note n1">♪</span>
+        <span class="bg-note n2">♫</span>
+        <span class="bg-note n3">♬</span>
+        <span class="bg-note n4">♩</span>
+        <span class="bg-note n5">♪</span>
+        <span class="bg-note n6">♫</span>
+        <span class="bg-note n7">♬</span>
+        <span class="bg-note n8">♩</span>
+        <span class="bg-note n9">♪</span>
+        <span class="bg-note n10">♫</span>
+        <span class="bg-note n11">♬</span>
+        <span class="bg-note n12">♩</span>
+    </div>
+
+    <div class="bg-waves">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </div>
+
+    <div class="bg-stars-container">
+        <div class="star-twinkle s1"></div>
+        <div class="star-twinkle s2"></div>
+        <div class="star-twinkle s3"></div>
+        <div class="star-twinkle s4"></div>
+        <div class="star-twinkle s5"></div>
+        <div class="star-twinkle s6"></div>
+        <div class="star-twinkle s7"></div>
+        <div class="star-twinkle s8"></div>
+        <div class="star-twinkle s9"></div>
+        <div class="star-twinkle s10"></div>
+        <div class="star-twinkle s11"></div>
+        <div class="star-twinkle s12"></div>
+        <div class="star-twinkle s13"></div>
+        <div class="star-twinkle s14"></div>
+        <div class="star-twinkle s15"></div>
+        <div class="star-twinkle s16"></div>
+        <div class="star-twinkle s17"></div>
+        <div class="star-twinkle s18"></div>
+        <div class="star-twinkle s19"></div>
+        <div class="star-twinkle s20"></div>
+    </div>
+
+    <div class="bg-rings">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+    </div>
+
+    <!-- NOUVELLES ANIMATIONS SPECTACULAIRES -->
+    <!-- Formes géométriques flottantes -->
+    <div class="bg-shapes">
+        <div class="shape shape-cube s1"></div>
+        <div class="shape shape-cube s2"></div>
+        <div class="shape shape-octahedron s3"></div>
+        <div class="shape shape-octahedron s4"></div>
+        <div class="shape shape-tetrahedron s5"></div>
+        <div class="shape shape-tetrahedron s6"></div>
+    </div>
+
+    <!-- Bulles flottantes -->
+    <div class="bg-bubbles">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+        <div class="bubble b5"></div>
+        <div class="bubble b6"></div>
+        <div class="bubble b7"></div>
+        <div class="bubble b8"></div>
+        <div class="bubble b9"></div>
+        <div class="bubble b10"></div>
+    </div>
+
+    <!-- Rayons lumineux -->
+    <div class="bg-light-rays">
+        <div class="light-ray lr1"></div>
+        <div class="light-ray lr2"></div>
+        <div class="light-ray lr3"></div>
+        <div class="light-ray lr4"></div>
+        <div class="light-ray lr5"></div>
+    </div>
+
+    <!-- Spirales énergétiques -->
+    <div class="bg-spirals">
+        <div class="spiral sp1"></div>
+        <div class="spiral sp2"></div>
+        <div class="spiral sp3"></div>
+    </div>
+
+    <!-- Pulses énergétiques -->
+    <div class="bg-energy-pulses">
+        <div class="pulse ep1"></div>
+        <div class="pulse ep2"></div>
+        <div class="pulse ep3"></div>
+        <div class="pulse ep4"></div>
+    </div>
+
+    <!-- Particules sensibles à la souris -->
+    <div class="bg-mouse-particles"></div>
+
+    <!-- ==================== PAGE D'ACCUEIL ==================== -->
+    <div id="home-page" class="page active">
+        <!-- Settings Menu (uniquement sur la page d'accueil) -->
+        <div class="settings-menu">
+            <button id="settings-btn" class="settings-btn" title="Paramètres">
+                <span class="settings-icon">⚙️</span>
+            </button>
+            
+            <div id="settings-panel" class="settings-panel">
+                <h3 class="settings-title">Paramètres</h3>
+                
+                <div class="settings-group">
+                    <label for="theme-select" class="settings-label">🎨 Thème</label>
+                    <div class="settings-option theme-option">
+                        <button id="theme-toggle-dropdown" class="theme-btn-light" title="Changer de thème">
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-text">Mode Sombre</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label class="settings-label">🎹 Style de Piano</label>
+                    <div class="piano-style-options">
+                        <button class="piano-style-option-btn" id="style-classic" data-style="classic" title="Piano Classique">
+                            <span class="style-label">🎹 Classique</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-electric" data-style="electric" title="Piano Électrique">
+                            <span class="style-label">⚡ Électrique</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-synth" data-style="synth" title="Synthétiseur">
+                            <span class="style-label">🎛️ Synth</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-organ" data-style="organ" title="Orgue">
+                            <span class="style-label">🎺 Orgue</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-harpsichord" data-style="harpsichord" title="Clavecin">
+                            <span class="style-label">🎼 Clavecin</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-musicbox" data-style="musicbox" title="Boîte à Musique">
+                            <span class="style-label">🎵 Boîte</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-bell" data-style="bell" title="Cloche">
+                            <span class="style-label">🔔 Cloche</span>
+                        </button>
+                        <button class="piano-style-option-btn" id="style-marimba" data-style="marimba" title="Marimba">
+                            <span class="style-label">🥁 Marimba</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label class="settings-label">🔔 Notifications</label>
+                    <label class="settings-option checkbox">
+                        <input type="checkbox" id="notifications-toggle" checked>
+                        <span>Activer les sons</span>
+                    </label>
+                </div>
+                
+                <div class="settings-group">
+                    <label class="settings-label">💾 Données</label>
+                    <button class="settings-option btn-small" id="reset-data-btn">
+                        Réinitialiser la progression
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="home-background">
+            <div class="bg-orb bg-orb-1"></div>
+            <div class="bg-orb bg-orb-2"></div>
+            <div class="bg-orb bg-orb-3"></div>
+            <div class="bg-grid"></div>
+        </div>
+        
+        <div class="home-container">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-title-wrapper">
+                        <h1 class="hero-title">NAP MUSIQUE</h1>
+                        <p class="hero-subtitle">Apprenez le Piano facilement</p>
+                    </div>
+                    
+                    <p class="hero-description">
+                        🎵 Une expérience musicale intuitive et amusante pour tous les niveaux
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-lg btn-primary" onclick="showPage('levels-page')">
+                            <span class="btn-icon">🎮</span>
+                            <span>Commencer</span>
+                        </button>
+                        <button class="btn btn-lg btn-secondary" onclick="showPage('free-play-page')">
+                            <span class="btn-icon">🎹</span>
+                            <span>Piano Libre</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="piano-showcase" id="home-piano">
+                        <div class="key key-white" data-note="C4"></div>
+                        <div class="key key-black" data-note="C#4"></div>
+                        <div class="key key-white" data-note="D4"></div>
+                        <div class="key key-black" data-note="D#4"></div>
+                        <div class="key key-white" data-note="E4"></div>
+                        <div class="key key-white" data-note="F4"></div>
+                        <div class="key key-black" data-note="F#4"></div>
+                        <div class="key key-white" data-note="G4"></div>
+                        <div class="key key-white" data-note="A4"></div>
+                    </div>
+                    
+                    <div class="floating-elements">
+                        <div class="float-note">♪</div>
+                        <div class="float-note">♫</div>
+                        <div class="float-note">♬</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2 class="section-title">Pourquoi Nap Musique?</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Apprentissage Progressif</h3>
+                        <p>5 niveaux adaptés à votre progression</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Feedback Immédiat</h3>
+                        <p>Sachez si vous jouez la bonne note</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎼</div>
+                        <h3>Morceaux Classiques</h3>
+                        <p>25+ mélodies à maîtriser</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Suivi des Progrès</h3>
+                        <p>Voir vos accomplissements</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-songs-learned">0</div>
+                    <div class="stat-label">Morceaux Appris</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-practice-time">0</div>
+                    <div class="stat-label">Minutes de Pratique</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="current-level-display">1</div>
+                    <div class="stat-label">Niveau Actuel</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Prêt à commencer?</h2>
+                <button class="btn btn-lg btn-primary" onclick="showPage('levels-page')">
+                    <span class="btn-icon">▶</span>
+                    <span>Commencer maintenant</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE DES NIVEAUX ==================== -->
+    <div id="levels-page" class="page">
+        <div class="page-header">
+            <button class="back-btn" onclick="showPage('home-page')">
+                <span>←</span> Retour
+            </button>
+            <h2 class="page-title">Choisissez Votre Niveau</h2>
+        </div>
+        
+        <div class="levels-container">
+            <div class="level-card level-1" onclick="selectLevel(1)">
+                <div class="level-glow"></div>
+                <div class="level-badge">DÉBUTANT</div>
+                <div class="level-icon">🌟</div>
+                <h3 class="level-name">Les Bases</h3>
+                <p class="level-description">Apprenez les premières notes et mélodies simples</p>
+                <div class="level-info">
+                    <span class="songs-count">🎵 5 Morceaux</span>
+                    <span class="difficulty">Facile</span>
+                </div>
+                <ul class="level-features">
+                    <li>✓ Notes lentes</li>
+                    <li>✓ Mélodies connues</li>
+                    <li>✓ Guidage complet</li>
+                </ul>
+            </div>
+
+            <div class="level-card level-2" onclick="selectLevel(2)">
+                <div class="level-glow"></div>
+                <div class="level-badge">APPRENTI</div>
+                <div class="level-icon">🎵</div>
+                <h3 class="level-name">Progression</h3>
+                <p class="level-description">Mélodies plus longues avec plus de notes</p>
+                <div class="level-info">
+                    <span class="songs-count">🎵 5 Morceaux</span>
+                    <span class="difficulty">Modéré</span>
+                </div>
+                <ul class="level-features">
+                    <li>✓ Rythme modéré</li>
+                    <li>✓ Plus de variations</li>
+                    <li>✓ Morceaux classiques</li>
+                </ul>
+            </div>
+
+            <div class="level-card level-3" onclick="selectLevel(3)">
+                <div class="level-glow"></div>
+                <div class="level-badge">INTERMÉDIAIRE</div>
+                <div class="level-icon">🎹</div>
+                <h3 class="level-name">Maîtrise</h3>
+                <p class="level-description">Morceaux complets et techniques avancées</p>
+                <div class="level-info">
+                    <span class="songs-count">🎵 5 Morceaux</span>
+                    <span class="difficulty">Difficile</span>
+                </div>
+                <ul class="level-features">
+                    <li>✓ Pièces complètes</li>
+                    <li>✓ Nuances musicales</li>
+                    <li>✓ Tempo soutenu</li>
+                </ul>
+            </div>
+
+            <div class="level-card level-4" onclick="selectLevel(4)">
+                <div class="level-glow"></div>
+                <div class="level-badge">AVANCÉ</div>
+                <div class="level-icon">🔥</div>
+                <h3 class="level-name">Virtuose</h3>
+                <p class="level-description">Morceaux classiques et modernes complexes</p>
+                <div class="level-info">
+                    <span class="songs-count">🎵 5 Morceaux</span>
+                    <span class="difficulty">Très Difficile</span>
+                </div>
+                <ul class="level-features">
+                    <li>✓ Tempo rapide</li>
+                    <li>✓ Techniques avancées</li>
+                    <li>✓ Expression musicale</li>
+                </ul>
+            </div>
+
+            <div class="level-card level-5" onclick="selectLevel(5)">
+                <div class="level-glow"></div>
+                <div class="level-badge">EXPERT</div>
+                <div class="level-icon">👑</div>
+                <h3 class="level-name">Maestro</h3>
+                <p class="level-description">Les chefs-d'œuvre du répertoire pianistique</p>
+                <div class="level-info">
+                    <span class="songs-count">🎵 5 Morceaux</span>
+                    <span class="difficulty">Expert</span>
+                </div>
+                <ul class="level-features">
+                    <li>✓ Pièces de concert</li>
+                    <li>✓ Interprétation</li>
+                    <li>✓ Perfection requise</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE SÉLECTION MUSIQUE ==================== -->
+    <div id="songs-page" class="page">
+        <div class="page-header">
+            <button class="back-btn" onclick="showPage('levels-page')">
+                <span>←</span> Retour
+            </button>
+            <h2 class="page-title" id="level-title">Niveau 1 - Les Bases</h2>
+        </div>
+        
+        <div class="songs-container" id="songs-list"></div>
+    </div>
+
+    <!-- ==================== PAGE DE JEU ==================== -->
+    <div id="game-page" class="page">
+        <div class="game-header">
+            <button class="back-btn game-back" onclick="exitGame()">
+                <span>←</span> Quitter
+            </button>
+            <div class="game-info">
+                <div class="song-info">
+                    <span class="current-song-name" id="current-song">Chanson</span>
+                </div>
+                <div class="progress-info">
+                    <span class="progress-label">Progression</span>
+                    <div class="song-progress-bar">
+                        <div class="song-progress-fill" id="song-progress"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0%</span>
+                </div>
+                <div class="score-display">
+                    <span class="score-label">SCORE</span>
+                    <span class="score-value" id="game-score">0</span>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="control-btn" id="play-pause-btn" onclick="togglePlayPause()">
+                    <span id="play-pause-icon">▶</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Notes qui descendent -->
+        <div class="falling-notes-area">
+            <div class="countdown-overlay" id="countdown-overlay">
+                <div class="countdown-number" id="countdown-number">3</div>
+            </div>
+            <div class="falling-notes-track" id="falling-notes-track">
+                <div class="hit-line"></div>
+            </div>
+        </div>
+
+        <!-- Le Piano Complet -->
+        <div class="piano-wrapper">
+            <div class="piano-container">
+                <div class="piano" id="piano">
+                    <!-- Octave 3 -->
+                    <div class="white-key" data-note="C3" data-key="y">
+                        <span class="key-label">DO</span>
+                        <span class="key-bind">Y</span>
+                    </div>
+                    <div class="black-key" data-note="C#3" data-key="²"></div>
+                    <div class="white-key" data-note="D3" data-key="u">
+                        <span class="key-label">RÉ</span>
+                        <span class="key-bind">U</span>
+                    </div>
+                    <div class="black-key" data-note="D#3" data-key="1"></div>
+                    <div class="white-key" data-note="E3" data-key="i">
+                        <span class="key-label">MI</span>
+                        <span class="key-bind">I</span>
+                    </div>
+                    <div class="white-key" data-note="F3" data-key="o">
+                        <span class="key-label">FA</span>
+                        <span class="key-bind">O</span>
+                    </div>
+                    <div class="black-key" data-note="F#3" data-key="2"></div>
+                    <div class="white-key" data-note="G3" data-key="p">
+                        <span class="key-label">SOL</span>
+                        <span class="key-bind">P</span>
+                    </div>
+                    <div class="black-key" data-note="G#3" data-key="3"></div>
+                    <div class="white-key" data-note="A3" data-key="¨">
+                        <span class="key-label">LA</span>
+                        <span class="key-bind">¨</span>
+                    </div>
+                    <div class="black-key" data-note="A#3" data-key="4"></div>
+                    <div class="white-key" data-note="B3" data-key="£">
+                        <span class="key-label">SI</span>
+                        <span class="key-bind">£</span>
+                    </div>
+                    
+                    <!-- Octave 4 (centrale) -->
+                    <div class="white-key" data-note="C4" data-key="q">
+                        <span class="key-label">DO</span>
+                        <span class="key-bind">Q</span>
+                        <div class="octave-marker">C4</div>
+                    </div>
+                    <div class="black-key" data-note="C#4" data-key="5"></div>
+                    <div class="white-key" data-note="D4" data-key="s">
+                        <span class="key-label">RÉ</span>
+                        <span class="key-bind">S</span>
+                    </div>
+                    <div class="black-key" data-note="D#4" data-key="6"></div>
+                    <div class="white-key" data-note="E4" data-key="d">
+                        <span class="key-label">MI</span>
+                        <span class="key-bind">D</span>
+                    </div>
+                    <div class="white-key" data-note="F4" data-key="f">
+                        <span class="key-label">FA</span>
+                        <span class="key-bind">F</span>
+                    </div>
+                    <div class="black-key" data-note="F#4" data-key="7"></div>
+                    <div class="white-key" data-note="G4" data-key="g">
+                        <span class="key-label">SOL</span>
+                        <span class="key-bind">G</span>
+                    </div>
+                    <div class="black-key" data-note="G#4" data-key="8"></div>
+                    <div class="white-key" data-note="A4" data-key="h">
+                        <span class="key-label">LA</span>
+                        <span class="key-bind">H</span>
+                    </div>
+                    <div class="black-key" data-note="A#4" data-key="9"></div>
+                    <div class="white-key" data-note="B4" data-key="j">
+                        <span class="key-label">SI</span>
+                        <span class="key-bind">J</span>
+                    </div>
+                    
+                    <!-- Octave 5 -->
+                    <div class="white-key" data-note="C5" data-key="k">
+                        <span class="key-label">DO</span>
+                        <span class="key-bind">K</span>
+                        <div class="octave-marker">C5</div>
+                    </div>
+                    <div class="black-key" data-note="C#5" data-key="0"></div>
+                    <div class="white-key" data-note="D5" data-key="l">
+                        <span class="key-label">RÉ</span>
+                        <span class="key-bind">L</span>
+                    </div>
+                    <div class="black-key" data-note="D#5" data-key="°"></div>
+                    <div class="white-key" data-note="E5" data-key="m">
+                        <span class="key-label">MI</span>
+                        <span class="key-bind">M</span>
+                    </div>
+
+                    <!-- Extension Niveau 4+ -->
+                    <div class="white-key" data-note="F5" data-min-level="4" data-key="%">
+                        <span class="key-label">FA</span>
+                        <span class="key-bind">%</span>
+                    </div>
+                    <div class="black-key" data-note="F#5" data-min-level="4" data-key="+"></div>
+                    <div class="white-key" data-note="G5" data-min-level="4" data-key="µ">
+                        <span class="key-label">SOL</span>
+                        <span class="key-bind">µ</span>
+                    </div>
+                    <div class="black-key" data-note="G#5" data-min-level="4" data-key="a"></div>
+                    <div class="white-key" data-note="A5" data-min-level="4" data-key="<">
+                        <span class="key-label">LA</span>
+                        <span class="key-bind">&lt;</span>
+                    </div>
+                    <div class="black-key" data-note="A#5" data-min-level="4" data-key="z"></div>
+                    <div class="white-key" data-note="B5" data-min-level="4" data-key="w">
+                        <span class="key-label">SI</span>
+                        <span class="key-bind">W</span>
+                    </div>
+
+                    <!-- Extension Niveau 5+ -->
+                    <div class="white-key" data-note="C6" data-min-level="5" data-key="x">
+                        <span class="key-label">DO</span>
+                        <span class="key-bind">X</span>
+                        <div class="octave-marker">C6</div>
+                    </div>
+                    <div class="black-key" data-note="C#6" data-min-level="5" data-key="e"></div>
+                    <div class="white-key" data-note="D6" data-min-level="5" data-key="c">
+                        <span class="key-label">RÉ</span>
+                        <span class="key-bind">C</span>
+                    </div>
+                    <div class="black-key" data-note="D#6" data-min-level="5" data-key="r"></div>
+                    <div class="white-key" data-note="E6" data-min-level="5" data-key="v">
+                        <span class="key-label">MI</span>
+                        <span class="key-bind">V</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback-popup" id="feedback-popup"></div>
+    </div>
+
+    <!-- ==================== PAGE PIANO LIBRE ==================== -->
+    <div id="free-play-page" class="page">
+        <div class="page-header">
+            <button class="back-btn" onclick="showPage('home-page')">
+                <span>←</span> Retour
+            </button>
+            <h2 class="page-title">Piano Libre</h2>
+        </div>
+        
+        <div class="free-play-info">
+            <p>Jouez librement ! Utilisez votre clavier ou cliquez sur les touches.</p>
+            <div class="keyboard-guide">
+                <div class="guide-row">
+                    <span class="guide-label">Octave basse:</span>
+                    <span class="guide-keys">Y U I O P ¨ £</span>
+                </div>
+                <div class="guide-row">
+                    <span class="guide-label">Octave centrale:</span>
+                    <span class="guide-keys">Q S D F G H J</span>
+                </div>
+                <div class="guide-row">
+                    <span class="guide-label">Octave haute:</span>
+                    <span class="guide-keys">K L M % µ &lt; W X C V</span>
+                </div>
+                <div class="guide-row">
+                    <span class="guide-label">Touches noires:</span>
+                    <span class="guide-keys">² 1 2 3 4 | 5 6 7 8 9 | 0 ° + A Z E R</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="piano-wrapper free-piano-wrapper">
+            <div class="piano-container">
+                <div class="piano" id="free-piano"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE RÉSULTATS ==================== -->
+    <div id="results-page" class="page">
+        <div class="results-container">
+            <div class="results-header">
+                <div class="result-icon-big" id="result-icon">🎉</div>
+                <h2 class="results-title" id="results-title">Bravo!</h2>
+                <p class="results-subtitle" id="results-subtitle">Vous avez terminé le morceau</p>
+            </div>
+            
+            <div class="results-stats">
+                <div class="result-item accuracy-item">
+                    <div class="result-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress" cx="50" cy="50" r="45" id="accuracy-circle"></circle>
+                        </svg>
+                        <span class="result-value" id="accuracy-value">0%</span>
+                    </div>
+                    <span class="result-label">Précision</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">🎯</span>
+                    <span class="result-value" id="final-score">0</span>
+                    <span class="result-label">Score</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">✓</span>
+                    <span class="result-value" id="correct-notes">0</span>
+                    <span class="result-label">Notes Correctes</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">✗</span>
+                    <span class="result-value" id="wrong-notes">0</span>
+                    <span class="result-label">Erreurs</span>
+                </div>
+            </div>
+
+            <div class="stars-earned">
+                <span class="big-star" id="star1">☆</span>
+                <span class="big-star" id="star2">☆</span>
+                <span class="big-star" id="star3">☆</span>
+            </div>
+
+            <div class="results-message" id="results-message">
+                Continuez à pratiquer pour vous améliorer!
+            </div>
+
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="replayGame()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">REJOUER</span>
+                </button>
+                <button class="btn btn-secondary" onclick="showPage('songs-page')">
+                    <span class="btn-icon">📋</span>
+                    <span class="btn-text">AUTRES MORCEAUX</span>
+                </button>
+                <button class="btn btn-secondary" onclick="showPage('home-page')">
+                    <span class="btn-icon">🏠</span>
+                    <span class="btn-text">ACCUEIL</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE TUTORIEL ==================== -->
+    <div id="tutorial-page" class="page">
+        <div class="page-header">
+            <button class="back-btn" onclick="showPage('home-page')">
+                <span>←</span> Retour
+            </button>
+            <h2 class="page-title">Comment Apprendre</h2>
+        </div>
+        
+        <div class="tutorial-content">
+            <div class="tutorial-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>🎹 Le Piano Virtuel</h3>
+                    <p>Un vrai clavier de piano avec 3 octaves complètes! Les touches blanches sont DO, RÉ, MI, FA, SOL, LA, SI. Les touches noires sont les dièses (#).</p>
+                </div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>💚 Les Notes Illuminées</h3>
+                    <p>La touche que vous devez jouer s'illumine en <strong style="color:#00b894">VERT</strong>. Le nom de la note s'affiche aussi en grand à l'écran. Suivez les indications!</p>
+                </div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>⌨️ Les Raccourcis Clavier</h3>
+                    <p>
+                        <strong>Touches blanches (C3→E6):</strong> Y, U, I, O, P, ¨, £, Q, S, D, F, G, H, J, K, L, M, %, µ, &lt;, W, X, C, V<br>
+                        <strong>Touches noires:</strong> ², 1, 2, 3, 4 | 5, 6, 7, 8, 9 | 0, °, +, A, Z, E, R
+                    </p>
+                </div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>🎯 Le But du Jeu</h3>
+                    <p>Suivez les notes affichées et jouez-les dans l'ordre. <strong>Le jeu attend que vous jouiez la bonne note</strong> avant de continuer. Prenez votre temps pour bien apprendre chaque morceau!</p>
+                </div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>⭐ Les Récompenses</h3>
+                    <p>Gagnez jusqu'à 3 étoiles selon votre précision:<br>
+                    ⭐ = 60% de précision<br>
+                    ⭐⭐ = 80% de précision<br>
+                    ⭐⭐⭐ = 95% de précision</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="don.js"></script>
+</body>
+</html>
