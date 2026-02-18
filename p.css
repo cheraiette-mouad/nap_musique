@@ -309,6 +309,62 @@ body[data-theme="light"] .settings-btn:hover {
     user-select: none;
 }
 
+
+.octave-shift-control {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.octave-shift-buttons {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: 12px;
+}
+
+.octave-btn {
+    height: 48px;
+    border-radius: 14px;
+    border: 2px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.octave-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: rgba(139, 92, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+.octave-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.octave-shift-value {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+}
+
+.octave-shift-hint {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
 .btn-small {
     width: 100%;
     padding: 12px;

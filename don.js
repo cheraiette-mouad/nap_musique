@@ -25,6 +25,90 @@ const NOTE_NAMES_FR = {
     'A#': 'LA#', 'B': 'SI'
 };
 
+const OCTAVE_SHIFT_KEY = 'napMusique_octaveShift';
+const MIN_OCTAVE_SHIFT = -3;
+const MAX_OCTAVE_SHIFT = 3;
+let octaveShift = 0;
+let octaveMinusBtn = null;
+let octavePlusBtn = null;
+let octaveDisplayEl = null;
+
+function clampOctaveShift(value) {
+    return Math.max(MIN_OCTAVE_SHIFT, Math.min(MAX_OCTAVE_SHIFT, value));
+}
+
+function loadOctaveShiftPreference() {
+    try {
+        const saved = parseInt(localStorage.getItem(OCTAVE_SHIFT_KEY), 10);
+        if (!isNaN(saved)) {
+            octaveShift = clampOctaveShift(saved);
+        }
+    } catch (error) {
+        octaveShift = 0;
+    }
+}
+
+function persistOctaveShift(value) {
+    try {
+        localStorage.setItem(OCTAVE_SHIFT_KEY, value);
+    } catch (error) {
+        // Ignorer les erreurs de stockage (mode navigation privée, etc.)
+    }
+}
+
+function formatOctaveShiftLabel(value) {
+    return value > 0 ? `+${value}` : value.toString();
+}
+
+loadOctaveShiftPreference();
+
+function syncOctaveShiftUI() {
+    if (!octaveDisplayEl) {
+        octaveDisplayEl = document.getElementById('octave-shift-display');
+    }
+    if (!octaveMinusBtn) {
+        octaveMinusBtn = document.getElementById('octave-shift-minus');
+    }
+    if (!octavePlusBtn) {
+        octavePlusBtn = document.getElementById('octave-shift-plus');
+    }
+    if (octaveDisplayEl) {
+        octaveDisplayEl.textContent = formatOctaveShiftLabel(octaveShift);
+    }
+    if (octaveMinusBtn) {
+        octaveMinusBtn.disabled = octaveShift <= MIN_OCTAVE_SHIFT;
+    }
+    if (octavePlusBtn) {
+        octavePlusBtn.disabled = octaveShift >= MAX_OCTAVE_SHIFT;
+    }
+}
+
+function adjustOctaveShift(delta) {
+    const next = clampOctaveShift(octaveShift + delta);
+    if (next === octaveShift) return;
+    octaveShift = next;
+    persistOctaveShift(octaveShift);
+    syncOctaveShiftUI();
+    if (gameState.currentSong && gameState.currentNoteIndex < gameState.currentSong.notes.length) {
+        updateNoteDisplay(gameState.currentSong.notes[gameState.currentNoteIndex]);
+    }
+}
+
+function initOctaveShiftControls() {
+    octaveMinusBtn = document.getElementById('octave-shift-minus');
+    octavePlusBtn = document.getElementById('octave-shift-plus');
+    octaveDisplayEl = document.getElementById('octave-shift-display');
+
+    if (octaveMinusBtn) {
+        octaveMinusBtn.addEventListener('click', () => adjustOctaveShift(-1));
+    }
+    if (octavePlusBtn) {
+        octavePlusBtn.addEventListener('click', () => adjustOctaveShift(1));
+    }
+
+    syncOctaveShiftUI();
+}
+
 // ==================== DONNÉES DES MORCEAUX ====================
 const songsData = {
     1: [
@@ -495,6 +579,18 @@ const FALL_CONFIG = {
     missOffset: 50
 };
 
+const DEFAULT_FALL_SPEED = FALL_CONFIG.speed;
+const LEVEL_FALL_SPEEDS = {
+    1: 0.09,
+    2: 0.13,
+    4: 0.2,
+    5: 0.24
+};
+
+function applyLevelFallSpeed(level) {
+    FALL_CONFIG.speed = LEVEL_FALL_SPEEDS[level] || DEFAULT_FALL_SPEED;
+}
+
 let fallState = {
     track: null,
     notes: [],
@@ -508,6 +604,7 @@ let fallState = {
 document.addEventListener('DOMContentLoaded', () => {
     setupPianoStyle();
     setupTheme();
+    initOctaveShiftControls();
     initAudio();
     loadProgress();
     createParticles();
@@ -587,21 +684,6 @@ function setupSettingsMenu() {
         });
     }
     
-    // Notifications toggle
-    const notificationsToggle = document.getElementById('notifications-toggle');
-    if (notificationsToggle) {
-        const saved = localStorage.getItem('napMusique_notifications');
-        notificationsToggle.checked = saved !== 'disabled';
-        
-        notificationsToggle.addEventListener('change', () => {
-            if (notificationsToggle.checked) {
-                localStorage.removeItem('napMusique_notifications');
-            } else {
-                localStorage.setItem('napMusique_notifications', 'disabled');
-            }
-        });
-    }
-    
     // Piano style selector in settings
     const pianoStyleBtns = document.querySelectorAll('.piano-style-option-btn');
     if (pianoStyleBtns.length > 0) {
@@ -621,6 +703,8 @@ function setupSettingsMenu() {
             });
         });
     }
+
+    syncOctaveShiftUI();
 }
 
 function applyTheme(theme) {
@@ -1414,8 +1498,10 @@ function playNote(note) {
         audioContext = new AudioContext();
     }
     
-    const frequency = NOTE_FREQUENCIES[note];
-    if (!frequency) return;
+    const baseFrequency = NOTE_FREQUENCIES[note];
+    if (!baseFrequency) return;
+
+    const frequency = baseFrequency * Math.pow(2, octaveShift);
     
     const now = audioContext.currentTime;
     
@@ -1537,9 +1623,10 @@ function updateNoteDisplay(note) {
     
     if (noteToPlay) {
         const noteName = note.replace(/\d/, '');
-        const octave = note.match(/\d/)?.[0] || '';
         const frenchName = NOTE_NAMES_FR[noteName] || noteName;
-        noteToPlay.textContent = frenchName + octave;
+        const baseOctave = parseInt(note.match(/\d+/)?.[0] || '0', 10);
+        const shiftedOctave = baseOctave + octaveShift;
+        noteToPlay.textContent = `${frenchName}${shiftedOctave}`;
     }
     
     if (noteHint) {
@@ -1639,6 +1726,8 @@ function startGame(song) {
     gameState.isPlaying = true;
     gameState.isPaused = true;
     gameState.startTime = Date.now();
+
+    applyLevelFallSpeed(gameState.currentLevel);
     
     document.getElementById('current-song').textContent = song.title;
     document.getElementById('game-score').textContent = '0';

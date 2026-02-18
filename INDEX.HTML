@@ -175,11 +175,17 @@
                 </div>
                 
                 <div class="settings-group">
-                    <label class="settings-label">🔔 Notifications</label>
-                    <label class="settings-option checkbox">
-                        <input type="checkbox" id="notifications-toggle" checked>
-                        <span>Activer les sons</span>
-                    </label>
+                    <label class="settings-label">🌀 Décalage d'Octave</label>
+                    <div class="octave-shift-control">
+                        <div class="octave-shift-buttons">
+                            <button type="button" class="octave-btn" id="octave-shift-minus">−</button>
+                            <div class="octave-shift-value">
+                                <span id="octave-shift-display">0</span> octave(s)
+                            </div>
+                            <button type="button" class="octave-btn" id="octave-shift-plus">+</button>
+                        </div>
+                        <p class="octave-shift-hint">Transpose le clavier entre -3 et +3 octaves.</p>
+                    </div>
                 </div>
                 
                 <div class="settings-group">
